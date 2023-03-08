@@ -1,0 +1,136 @@
+<p-sidebar
+  [(visible)]="this.icafeManagementService.visibleSidebar"
+  position="right"
+  styleClass="p-sidebar-md"
+  [baseZIndex]="10000"
+  (onHide)="removeSelectedIcafe()"
+>
+  <h3>Tambah I-Cafe Baru</h3>
+
+  <form [formGroup]="formIcafe" (ngSubmit)="addIcafe()">
+    <span class="p-float-label mt-5">
+      <input
+        id="float-input"
+        type="text"
+        pInputText
+        class="block"
+        autofocus
+        formControlName="name"
+      />
+      <label for="float-input">Nama I-Cafe</label>
+    </span>
+
+    <div
+      *ngIf="
+        checkValidation('name')?.invalid &&
+        (checkValidation('name')?.dirty || checkValidation('name')?.touched)
+      "
+      class="alert text-danger"
+    >
+      <div *ngIf="checkValidation('name')?.errors?.['required']">
+        Nama harus diisi
+      </div>
+    </div>
+
+    <span class="p-float-label mt-5">
+      <input
+        id="float-input"
+        type="number"
+        pInputText
+        class="block"
+        autofocus
+        formControlName="totalPc"
+      />
+      <label for="float-input">Jumlah PC</label>
+    </span>
+
+    <div
+      *ngIf="
+        checkValidation('totalPc')?.invalid &&
+        (checkValidation('totalPc')?.dirty ||
+          checkValidation('totalPc')?.touched)
+      "
+      class="alert text-danger"
+    >
+      <div *ngIf="checkValidation('totalPc')?.errors?.['required']">
+        Total PC harus diisi
+      </div>
+    </div>
+
+    <span class="p-float-label mt-5">
+      <textarea
+        pInputTextarea
+        class="block"
+        formControlName="description"
+      ></textarea>
+      <label for="float-input">Deskripsi I-Cafe</label>
+    </span>
+
+    <div
+      *ngIf="
+        checkValidation('description')?.invalid &&
+        (checkValidation('description')?.dirty ||
+          checkValidation('description')?.touched)
+      "
+      class="alert text-danger"
+    >
+      <div *ngIf="checkValidation('description')?.errors?.['required']">
+        Deskripsi harus diisi
+      </div>
+    </div>
+
+    <div>
+      <p-skeleton
+        *ngIf="this.icafeManagementService.isLoadingCreateIcafe"
+        styleClass="mt-2"
+      ></p-skeleton>
+
+      <div
+        *ngIf="!this.icafeManagementService.isLoadingCreateIcafe"
+        class="d-flex justify-content-between"
+      >
+        <button
+          type="submit"
+          pButton
+          [disabled]="!formIcafe.valid"
+          [label]="(icafe | json) == '{}' ? 'Tambah' : 'Edit'"
+          class="p-button-success p-button-sm mt-5"
+        ></button>
+
+        <button
+          *ngIf="(icafe | json) != '{}'"
+          type="button"
+          pButton
+          label="Hapus"
+          (click)="displaySidebarCafe = true"
+          class="p-button-danger p-button-sm mt-5"
+        ></button>
+      </div>
+    </div>
+  </form>
+</p-sidebar>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-dialog
+  header="Konfirmasi"
+  [(visible)]="displaySidebarCafe"
+  [dismissableMask]="false"
+  [modal]="true"
+>
+  Apakah anda yakin mau menghapus i-cafe ini ?
+  <div class="d-flex justify-content-between">
+    <button
+      type="button"
+      pButton
+      label="Kembali"
+      (click)="displaySidebarCafe = false"
+      class="p-button-success p-button-text p-button-sm mt-5"
+    ></button>
+    <button
+      type="button"
+      pButton
+      label="Hapus"
+      (click)="deleteIcafe()"
+      class="p-button-danger p-button-sm mt-5"
+    ></button>
+  </div>
+</p-dialog>

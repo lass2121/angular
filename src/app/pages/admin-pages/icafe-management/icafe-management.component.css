@@ -1,0 +1,23 @@
+.block {
+  display: block;
+  width: 100%;
+}
+
+.width-screen {
+  width: 90vw;
+}
+
+@media only screen and (max-width: 350px) {
+  .height-responsive {
+    height: 100vh;
+  }
+}
+
+@media only screen and (min-width: 351px) {
+  .height-responsive {
+    height: 75vh;
+  }
+}
+:host ::ng-deep .p-accordion .p-accordion-header .p-accordion-header-link {
+  margin-top: 30px;
+}

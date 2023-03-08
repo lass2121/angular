@@ -1,0 +1,96 @@
+<div class="container-home">
+  <app-navbar [propItem]="menuItem"></app-navbar>
+
+  <div class="bg-image">
+    <div class="text-center font-title bold pt-5 text-white fade-in-text">
+      Tentang Kami
+    </div>
+    <div
+      class="d-flex justify-content-center align-items-center padding-top-vh"
+    >
+      <div class="width-screen">
+        <p-card>
+          <p
+            class="font-sub text-dark line-height-3 fade-in-text px-5 text-center"
+          >
+            <span class="bold">Mabar Kuy</span> adalah salah satu i-cafe di
+            indonesia yang mempunyai sistem untuk membooking PC yang sudah
+            disediakan oleh pihak Mabar Kuy. <br />
+          </p>
+        </p-card>
+      </div>
+    </div>
+  </div>
+  <div class="color-image">
+    <div
+      class="text-center font-title bold padding-top-20-vh text-white fade-in-text"
+    >
+      Pelayanan dan fasilitas
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="width-screen">
+        <p-carousel
+          [value]="products"
+          [numVisible]="2"
+          [numScroll]="2"
+          [circular]="false"
+          [responsiveOptions]="responsiveOptions"
+        >
+          <ng-template let-product pTemplate="item">
+            <div class="product-item">
+              <div class="product-item-content">
+                <div class="mb-3">
+                  <img
+                    src="assets/{{ product.image }}"
+                    [alt]="product.name"
+                    style="object-fit: cover"
+                    height="100%"
+                    width="40%"
+                    class="product-image"
+                  />
+                </div>
+                <div>
+                  <h4 class="mb-1">{{ product.name }}</h4>
+                  <h6 *ngIf="product.price" class="mt-0 mb-3">
+                    Hanya Rp.{{ product.price }},00 - per jam
+                  </h6>
+                  <h6 *ngIf="product.description" class="mt-0 mb-3">
+                    {{ product.description }}
+                  </h6>
+                  <button
+                    *ngIf="product.name === 'High performance PC'"
+                    pButton
+                    type="button"
+                    label="Cek spek"
+                    class="p-button-success p-button-sm"
+                    (click)="this.isDisplaySpecification = true"
+                  ></button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Spek PC"
+  [(visible)]="this.isDisplaySpecification"
+  [modal]="true"
+  [breakpoints]="{ '1300px': '35vw', '1000px': '60vw' }"
+  [style]="{ width: '25vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [dismissableMask]="true"
+>
+  <div>Intel I5 11400H 6 Cores 12 Threads 4.5 Ghz</div>
+  <div>16 GB RAM</div>
+  <div>ZOTAC RTX 2080 OC 8GB VRAM VGA</div>
+  <div>Samsung 24 inch 144hz monitor</div>
+  <div>Razer blackwidow keyboard</div>
+  <div>Razer Basilisk X mouse</div>
+  <div>Razer kraken headset</div>
+</p-dialog>

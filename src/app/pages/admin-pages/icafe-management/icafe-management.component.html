@@ -1,0 +1,114 @@
+<div class="d-flex justify-content-center align-items-start mt-5">
+  <div class="width-screen">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Kembali"
+      class="p-button-success p-button-text mb-3"
+      routerLink="/admin-dashboard/home"
+    >
+      <i class="pi pi-arrow-left mr-2"></i>
+    </button>
+    <p-card class="height-responsive" header="Pilih Lokasi">
+      <div class="flex align-items-center gap-5">
+        <div>
+          <h5>Provinsi</h5>
+          <p-dropdown
+            [options]="provinces"
+            [(ngModel)]="selectedProvince"
+            optionLabel="nama"
+            [filter]="true"
+            filterBy="nama"
+            [showClear]="true"
+            placeholder="Pilih Provinsi"
+            (onChange)="onChangeCountry($event)"
+          >
+            <ng-template pTemplate="selectedItem">
+              <div
+                class="country-item country-item-value"
+                *ngIf="selectedProvince"
+              >
+                <div>{{ selectedProvince.nama }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+              <div class="country-item">
+                <div>{{ country.nama }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div>
+          <h5>Kota</h5>
+          <p-dropdown
+            [options]="cities"
+            [(ngModel)]="selectedCity"
+            optionLabel="nama"
+            [filter]="true"
+            filterBy="nama"
+            [showClear]="true"
+            placeholder="Pilih Kota"
+            (onChange)="onChangeCity($event)"
+          >
+            <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value" *ngIf="selectedCity">
+                <div>{{ selectedCity.nama }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-city pTemplate="item">
+              <div class="country-item">
+                <div>{{ city.nama }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </p-card>
+    <div class="mt-5" *ngIf="selectedProvince && selectedCity">
+      <p-card
+        class="height-responsive"
+        [header]="
+          filteredIcafe.length
+            ? 'Pilih I-Cafe'
+            : 'Mabar kuy belum tersedia di kota ini.'
+        "
+      >
+        <div class="d-flex justify-content-end">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Tambah I-cafe"
+            class="p-button-success p-button-text mb-3"
+            (click)="this.iCafeManagementService.visibleSidebar = true"
+          >
+            <i class="pi pi-plus mr-2"> </i>
+          </button>
+        </div>
+
+        <p-accordion [multiple]="true" *ngFor="let icafe of filteredIcafe">
+          <p-accordionTab [header]="icafe.name">
+            <div class="d-flex justify-content-between">
+              {{ icafe.description }}
+              <button
+                type="button"
+                pButton
+                label="Edit"
+                class="p-button-success p-button-sm"
+                (click)="showEditSidebar(icafe)"
+              ></button></div
+          ></p-accordionTab>
+        </p-accordion>
+      </p-card>
+    </div>
+  </div>
+</div>
+<app-sidebar-add-icafe
+  [province]="selectedProvince"
+  [city]="selectedCity"
+  [icafe]="selectedIcafe"
+  (getIcafe)="getIcafe()"
+>
+  ></app-sidebar-add-icafe
+>

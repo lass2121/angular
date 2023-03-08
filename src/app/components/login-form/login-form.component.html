@@ -1,0 +1,79 @@
+<div>
+  <form [formGroup]="formLogin" (ngSubmit)="login()">
+    <span class="p-float-label mt-4">
+      <input
+        type="text"
+        pInputText
+        class="block"
+        autofocus
+        formControlName="email"
+        [disabled]="this.loginService.isLoadingLogin"
+      />
+      <label for="float-input">Email</label>
+    </span>
+
+    <div
+      *ngIf="
+        checkValidation('email')?.invalid &&
+        (checkValidation('email')?.dirty || checkValidation('email')?.touched)
+      "
+      class="alert text-danger"
+    >
+      <div *ngIf="checkValidation('email')?.errors?.['required']">
+        Email harus diisi
+      </div>
+      <div
+        *ngIf="checkValidation('email')?.errors?.['email']"
+        class="text-danger"
+      >
+        Email tidak valid
+      </div>
+    </div>
+
+    <span class="p-float-label mt-5">
+      <input
+        type="password"
+        pInputText
+        class="block"
+        formControlName="password"
+        [disabled]="this.loginService.isLoadingLogin"
+      />
+      <label for="float-input">Password</label>
+    </span>
+
+    <div
+      *ngIf="
+        checkValidation('password')?.invalid &&
+        (checkValidation('password')?.dirty ||
+          checkValidation('password')?.touched)
+      "
+      class="alert text-danger"
+    >
+      <div *ngIf="checkValidation('password')?.errors?.['required']">
+        Password harus diisi
+      </div>
+    </div>
+
+    <span class="p-float-label mt-3">
+      Belum punya akun ?
+      <span
+        [ngStyle]="{ color: 'var(--green-500)', cursor: 'pointer' }"
+        [routerLink]="'signup'"
+        (click)="this.loginService.isDisplayModalLogin = false"
+        >Daftar</span
+      >
+    </span>
+    <p-skeleton
+      *ngIf="this.loginService.isLoadingLogin"
+      styleClass="mt-2"
+    ></p-skeleton>
+    <button
+      *ngIf="!this.loginService.isLoadingLogin"
+      pButton
+      [disabled]="!formLogin.valid"
+      type="submit"
+      label="Masuk"
+      class="p-button-outlined p-button-success p-button-sm mt-4 btn-block"
+    ></button>
+  </form>
+</div>

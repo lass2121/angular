@@ -1,0 +1,154 @@
+<div class="d-flex justify-content-center align-items-center height-100-vh">
+  <div class="width-screen">
+    <p-card header="Sebentar aja">
+      <form [formGroup]="formRegister" (ngSubmit)="register()">
+        <span class="p-float-label">
+          <input
+            type="email"
+            pInputText
+            class="block"
+            autofocus
+            formControlName="email"
+            [disabled]="this.registerService.isLoadingRegister"
+          />
+          <label for="float-input">Email</label>
+        </span>
+
+        <div
+          *ngIf="
+            checkValidation('email')?.invalid &&
+            (checkValidation('email')?.dirty ||
+              checkValidation('email')?.touched)
+          "
+          class="alert text-danger"
+        >
+          <div *ngIf="checkValidation('email')?.errors?.['required']">
+            Email harus diisi
+          </div>
+          <div
+            *ngIf="checkValidation('email')?.errors?.['email']"
+            class="text-danger"
+          >
+            Email tidak valid
+          </div>
+        </div>
+
+        <span class="p-float-label mt-4">
+          <input
+            type="text"
+            pInputText
+            class="block"
+            formControlName="name"
+            [disabled]="this.registerService.isLoadingRegister"
+          />
+          <label for="float-input">Username</label>
+        </span>
+
+        <div
+          *ngIf="
+            checkValidation('name')?.invalid &&
+            (checkValidation('name')?.dirty || checkValidation('name')?.touched)
+          "
+          class="alert text-danger"
+        >
+          <div *ngIf="checkValidation('name')?.errors?.['required']">
+            Username harus diisi
+          </div>
+        </div>
+
+        <div class="p-inputgroup mt-4">
+          <span class="p-inputgroup-addon">+62</span>
+          <span class="p-float-label">
+            <input
+              type="phone"
+              pInputText
+              formControlName="phone"
+              [disabled]="this.registerService.isLoadingRegister"
+            />
+            <label for="float-input">No. Tel</label>
+          </span>
+        </div>
+
+        <div
+          *ngIf="
+            checkValidation('phone')?.invalid &&
+            (checkValidation('phone')?.dirty ||
+              checkValidation('phone')?.touched)
+          "
+          class="alert text-danger"
+        >
+          <div *ngIf="checkValidation('phone')?.errors?.['required']">
+            No. Tel harus diisi
+          </div>
+        </div>
+
+        <span class="p-float-label mt-4">
+          <input
+            type="password"
+            pInputText
+            class="block"
+            formControlName="password"
+            [disabled]="this.registerService.isLoadingRegister"
+          />
+          <label for="float-input">Password</label>
+        </span>
+
+        <div
+          *ngIf="
+            checkValidation('password')?.invalid &&
+            (checkValidation('password')?.dirty ||
+              checkValidation('password')?.touched)
+          "
+          class="alert text-danger"
+        >
+          <div *ngIf="checkValidation('password')?.errors?.['required']">
+            Password harus diisi
+          </div>
+          <div *ngIf="checkValidation('password')?.errors?.['minlength']">
+            Password minimal 5 digit
+          </div>
+        </div>
+
+        <p-skeleton
+          *ngIf="this.registerService.isLoadingRegister"
+          styleClass="mt-2"
+        ></p-skeleton>
+
+        <button
+          *ngIf="!this.registerService.isLoadingRegister"
+          pButton
+          [disabled]="!formRegister.valid"
+          type="submit"
+          label="Daftar"
+          class="p-button-outlined p-button-success p-button-sm mt-4 btn-block"
+        ></button>
+
+        <span class="p-float-label mt-3">
+          Sudah punya akun?
+          <span
+            [ngStyle]="{ color: 'var(--green-500)', cursor: 'pointer' }"
+            (click)="navigateLogin()"
+            >Login</span
+          >
+        </span>
+      </form>
+    </p-card>
+  </div>
+</div>
+<p-dialog
+  header="Sukses buat akun baru"
+  [(visible)]="displayRegisterDialog"
+  [dismissableMask]="false"
+  [modal]="true"
+>
+  <p>Yuk login</p>
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="navigateLogin()"
+      label="Lanjut"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
+<p-toast position="top-center" key="tc"></p-toast>

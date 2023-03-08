@@ -1,0 +1,26 @@
+.height-100-vh {
+  height: 100vh;
+}
+
+.block {
+  display: block;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1249px) {
+  .width-screen {
+    width: 50vw;
+  }
+}
+
+@media only screen and (min-width: 1250px) and (max-width: 1500px) {
+  .width-screen {
+    width: 40vw;
+  }
+}
+
+@media only screen and (min-width: 1501px) {
+  .width-screen {
+    width: 25vw;
+  }
+}

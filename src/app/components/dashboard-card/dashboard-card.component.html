@@ -1,0 +1,12 @@
+<div class="grid px-5">
+  <div class="col-6 mt-5" *ngFor="let item of dataCard">
+    <p-card
+      [style]="{
+        height: '25vh',
+        cursor: 'pointer'
+      }"
+      [routerLink]="item.url"
+      >{{ item.title }}</p-card
+    >
+  </div>
+</div>

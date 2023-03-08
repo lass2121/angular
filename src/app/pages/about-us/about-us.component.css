@@ -1,0 +1,57 @@
+.container-home {
+    padding: 0px 0px;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .width-screen {
+    width: 90vw;
+  }
+
+  
+.bg-image {
+  height: 50%;
+  background-image: url("/assets/image-home-1.jpg");
+  background-color: #cccccc;
+  background-size: cover;
+}
+
+.color-image{
+  height: 90%;
+  background-color: #cccccc;
+
+}
+
+.padding-top-vh{
+  padding-top: 30vh;
+}
+
+.padding-top-20-vh{
+  padding-top: 20vh;
+}
+
+@media only screen and (max-width: 999px) {
+  .font-sub {
+    font-size: 22px;
+  }
+
+  .font-title {
+    font-size: 54px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .font-sub {
+    font-size: 26px;
+  }
+
+  .font-title {
+    font-size: 72px;
+  }
+}
+
+
+
+  
+  

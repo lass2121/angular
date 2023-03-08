@@ -1,0 +1,178 @@
+<div class="d-flex justify-content-center align-items-start mt-5">
+  <div class="width-screen">
+    <form
+      [formGroup]="formBookingDetail"
+      (ngSubmit)="submitFormBooking()"
+      *ngIf="!this.iCafeManagementService.isOrderSucceed"
+    >
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Kembali"
+            class="p-button-success p-button-text mb-3"
+            routerLink="/dashboard/list"
+          >
+            <i class="pi pi-arrow-left mr-2"></i>
+          </button>
+
+          <div
+            class="mt-2 mb-5"
+            [class]="
+              this.userService.selectedBgColour === 'black' ||
+              this.userService.selectedBgColour === 'blue'
+                ? 'text-white'
+                : 'text-dark'
+            "
+          >
+            Pilih tanggal & waktu <span class="text-danger">*</span>
+          </div>
+
+          <p-calendar
+            [showTime]="true"
+            [showSeconds]="false"
+            [minDate]="minimumDate"
+            inputId="time"
+            class="block"
+            formControlName="date"
+            placeholder="Tanggal & waktu"
+            (onSelect)="checkAvailablePc()"
+          ></p-calendar>
+
+          <div
+            *ngIf="
+              checkValidation('date')?.invalid &&
+              (checkValidation('date')?.dirty ||
+                checkValidation('date')?.touched)
+            "
+            class="alert text-danger"
+          >
+            <div *ngIf="checkValidation('date')?.errors?.['required']">
+              Tanggal & waktu harus di isi
+            </div>
+          </div>
+
+          <div
+            *ngIf="formBookingDetail.value.date"
+            class="my-5"
+            [class]="
+              this.userService.selectedBgColour === 'black' ||
+              this.userService.selectedBgColour === 'blue'
+                ? 'text-white'
+                : 'text-dark'
+            "
+          >
+            Pilih nomor PC mu <span class="text-danger">*</span>
+          </div>
+          <p-selectButton
+            *ngIf="formBookingDetail.value.date"
+            [options]="availablePc"
+            formControlName="numberPc"
+            optionLabel="icon"
+          >
+            <ng-template let-item>
+              <i [class]="item.icon"></i>
+              <div class="">{{ item.id }}</div>
+            </ng-template>
+          </p-selectButton>
+
+          <div
+            *ngIf="
+              checkValidation('numberPc')?.invalid &&
+              (checkValidation('numberPc')?.dirty ||
+                checkValidation('numberPc')?.touched)
+            "
+            class="alert text-danger"
+          >
+            <div *ngIf="checkValidation('numberPc')?.errors?.['required']">
+              Nomor PC harus di isi
+            </div>
+          </div>
+
+          <div
+            *ngIf="formBookingDetail.value.date"
+            class="my-5"
+            [class]="
+              this.userService.selectedBgColour === 'black' ||
+              this.userService.selectedBgColour === 'blue'
+                ? 'text-white'
+                : 'text-dark'
+            "
+          >
+            Masukkan durasi main <span class="text-danger">*</span>
+          </div>
+          <p-inputNumber
+            *ngIf="formBookingDetail.value.date"
+            formControlName="duration"
+            inputId="minmax"
+            inputId="minmax"
+            mode="decimal"
+            [min]="1"
+            [max]="23"
+            placeholder="Masukkan jam"
+            (onBlur)="[checkAvailablePc(), calculateTotal()]"
+          >
+          </p-inputNumber>
+        </div>
+
+        <div class="col-12 md:col-6">
+          <p-card header="Rincian" class="summary">
+            <div>
+              <div>Tanggal & waktu</div>
+              <div>{{ formBookingDetail.value.date }}</div>
+            </div>
+            <div *ngIf="formBookingDetail.value.date" class="mt-5">
+              <div>Nomor Pc</div>
+              <div>{{ formBookingDetail.value.numberPc?.id }}</div>
+            </div>
+            <div *ngIf="formBookingDetail.value.date" class="mt-5">
+              <div>Durasi</div>
+              <div>{{ formBookingDetail.value.duration }}</div>
+            </div>
+            <div *ngIf="formBookingDetail.value.date" class="mt-5">
+              <div>Total</div>
+              <div>{{ totalAmount }}</div>
+            </div>
+          </p-card>
+
+          <p-skeleton
+            *ngIf="this.iCafeManagementService.isLoadingCreateOrder"
+            styleClass="mt-2"
+          ></p-skeleton>
+
+          <button
+            *ngIf="!this.iCafeManagementService.isLoadingCreateOrder"
+            pButton
+            pRipple
+            [disabled]="
+              checkEmptyObjectKey(formBookingDetail.value.numberPc!) ||
+              !formBookingDetail.valid
+            "
+            type="submit"
+            label="Lanjut"
+            class="p-button-success mt-5 btn-block"
+          ></button>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="this.iCafeManagementService.isOrderSucceed" class="text-center">
+      <div class="mb-2">
+        PC berhasil dipesan, Lakukan pembayaran ke QR Berikut
+      </div>
+      <div class="mb-3">Rp.{{ totalAmount }},00</div>
+      <img src="/assets/Scan.jpg" height="400" class="mx-3" />
+      <div>
+        <button
+          pButton
+          pRipple
+          type="click"
+          label="Kembali ke home"
+          class="p-button-success mt-5"
+          routerLink="/dashboard/home"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>

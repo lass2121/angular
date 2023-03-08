@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body,
+app-root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body.black {
+  background: #252222;
+}
+
+body.white {
+  background: #ffffff;
+}
+
+body.blue {
+  background: #222c88;
+}
+
+
+.bold {
+  font-weight: 600;
+}
+
+.font-72 {
+  font-size: 72px;
+}
+
+.font-48 {
+  font-size: 48px;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/assets/Roboto/Roboto-Black.ttf") format("truetype");
+  font-weight: 400;
+}
+
+

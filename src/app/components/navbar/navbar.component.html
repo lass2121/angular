@@ -1,0 +1,86 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <img src="/assets/logo.png" height="40" class="mx-3" />
+  </ng-template>
+  <ng-template *ngIf="items.length" pTemplate="end">
+    <button
+      pButton
+      type="button"
+      label="Masuk"
+      class="p-button-outlined p-button-success p-button-sm mr-3"
+      (click)="showModalDialog()"
+    ></button>
+
+    <button
+      type="button"
+      pButton
+      label="Daftar"
+      class="p-button-success p-button-sm"
+      routerLink="/signup"
+    ></button>
+  </ng-template>
+  <ng-template *ngIf="items.length == 0" pTemplate="end">
+    <p-splitButton
+      [label]="'Selamat datang, ' + role.data.name"
+      [model]="buttonItems"
+      #ua
+      (onClick)="ua.onDropdownButtonClick($event)"
+      styleClass="p-button-text p-button-plain mr-5 mb-2"
+    ></p-splitButton>
+  </ng-template>
+</p-menubar>
+
+<p-dialog
+  *ngIf="items.length"
+  header="Masuk"
+  [(visible)]="this.loginService.isDisplayModalLogin"
+  [modal]="true"
+  [breakpoints]="{ '1300px': '35vw', '1000px': '60vw' }"
+  [style]="{ width: '25vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [dismissableMask]="true"
+>
+  <app-login-form (showErrorToast)="showTopCenter($event)"></app-login-form>
+</p-dialog>
+
+<p-dialog
+  *ngIf="items.length == 0"
+  header="Setting"
+  [(visible)]="this.isDisplaySetting"
+  [modal]="true"
+  [breakpoints]="{ '1300px': '35vw', '1000px': '60vw' }"
+  [style]="{ width: '25vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [closable]="true"
+  [dismissableMask]="true"
+>
+  <h5 class="mb-3">Atur warna background mu</h5>
+  <p-radioButton
+    name="groupname"
+    value="white"
+    label="Terang"
+    [(ngModel)]="this.userService.selectedBgColour"
+    class="mr-3"
+    (onClick)="changeBackground()"
+  ></p-radioButton>
+  <p-radioButton
+    name="groupname"
+    value="black"
+    label="Gelap"
+    [(ngModel)]="this.userService.selectedBgColour"
+    class="mr-3"
+    (onClick)="changeBackground()"
+  ></p-radioButton>
+  <p-radioButton
+    name="groupname"
+    value="blue"
+    label="Biru"
+    [(ngModel)]="this.userService.selectedBgColour"
+    (onClick)="changeBackground()"
+  ></p-radioButton>
+</p-dialog>
+
+<p-toast position="top-center" key="tc"></p-toast>

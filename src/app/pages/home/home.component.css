@@ -1,0 +1,95 @@
+.container-home {
+  padding: 0px 0px;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+}
+
+.first-image {
+  height: 100%;
+  background-image: url("/assets/image-home-1.jpg");
+  background-size: cover;
+  filter: grayscale(20%);
+}
+
+.second-image {
+  height: 800px;
+  background-color: #4d4141;
+}
+
+.line-height-3 {
+  line-height: 1.6;
+}
+
+.fade-in-text {
+  animation: fadeIn 3s;
+  -webkit-animation: fadeIn 3s;
+  -moz-animation: fadeIn 3s;
+  -o-animation: fadeIn 3s;
+  -ms-animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 999px) {
+  .font-sub {
+    font-size: 32px;
+  }
+
+  .font-title {
+    font-size: 54px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .font-sub {
+    font-size: 38px;
+  }
+
+  .font-title {
+    font-size: 72px;
+  }
+}

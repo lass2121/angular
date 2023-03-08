@@ -1,0 +1,24 @@
+.block {
+  display: block;
+  width: 100%;
+}
+
+.width-screen {
+  width: 90vw;
+}
+
+:host ::ng-deep .p-card .p-card-body {
+  height: 60vh;
+}
+
+@media only screen and (max-width: 767px) {
+  :host ::ng-deep .p-calendar .p-inputtext {
+    width: 75vw;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  :host ::ng-deep .p-calendar .p-inputtext {
+    width: 30vw;
+  }
+}
